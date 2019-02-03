@@ -6,7 +6,7 @@ const mapStateToProps = (state, ownProps) => {
   const {id} = ownProps
   const employee = state.employees.filter(employee => employee.id === id)[0]
   const {lastName, supervisor, name} = employee
-  const projects = state.projects.filter(project => project.employee === id)
+  const projects = state.projects.filter(project => project.assignedTo === id)
 
   return {
     lastName,

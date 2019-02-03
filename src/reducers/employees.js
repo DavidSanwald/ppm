@@ -1,4 +1,5 @@
 import {ADD_EMPLOYEE} from '.././constants/ActionTypes'
+
 const employees = (state = [], action) => {
   const {payload, type} = action
   switch (type) {

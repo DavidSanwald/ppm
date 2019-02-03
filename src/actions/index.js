@@ -29,31 +29,31 @@ const addTask = ({name, id, description, estimate}) => ({
     id: v4(),
   },
 })
-const updateTask = ({id, estimate}) => ({
+const updateTask = (id, estimate) => ({
   type: UPDATE_TASK,
   payload: {id, estimate},
 })
-const assignTask = ({id1, id2}) => ({
+const assignTask = (projectId, taskId) => ({
   type: ASSIGN_TASK,
   payload: {
-    projectId: id1,
-    taskId: id2,
+    projectId,
+    taskId,
   },
 })
-const deleteTask = ({id}) => ({type: DELETE_TASK, payload: {id}})
+const deleteTask = id => ({type: DELETE_TASK, payload: {id}})
 
-const assignProject = ({id1, id2}) => ({
+const assignProject = (projectId, employeeId) => ({
   type: ASSIGN_PROJECT,
   payload: {
-    projectId: id1,
-    employeeId: id2,
+    projectId,
+    employeeId,
   },
 })
 const addProject = ({name, startDate, slack}) => ({
   type: ADD_PROJECT,
   payload: {id: v4(), name, startDate, slack},
 })
-const deleteProject = ({id}) => ({
+const deleteProject = id => ({
   type: DELETE_PROJECT,
   payload: {id},
 })

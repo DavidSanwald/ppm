@@ -12,10 +12,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     assignTaskProp: taskId => projectId =>
-      dispatch(assignTask({id1: projectId, id2: taskId})),
+      dispatch(assignTask(projectId, taskId)),
     updateEstimateProp: taskId => estimate =>
-      dispatch(updateTask({id: taskId, estimate})),
-    deleteTaskProp: id => dispatch(deleteTask({id})),
+      dispatch(updateTask(taskId, estimate)),
+    deleteTaskProp: id => dispatch(deleteTask(id)),
   }
 }
 
@@ -26,7 +26,7 @@ function Task({
   updateEstimateProp,
   deleteTaskProp,
 }) {
-  const {name, description, estimate, id, project} = task
+  const {name, description, estimate, id, assignedTo} = task
   return (
     <>
       <tr>
@@ -42,7 +42,7 @@ function Task({
         <td>
           <DropDown
             changeHandler={assignTaskProp(id)}
-            current={project}
+            current={assignedTo}
             items={projects}
           />
         </td>

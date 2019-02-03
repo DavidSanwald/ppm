@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => {
   const {id} = ownProps
   const {projects, tasks, employees} = state
   const project = projects.filter(R.propEq('id', id))[0]
-  const assignedTasks = tasks.filter(R.propEq('project', id))
+  const assignedTasks = tasks.filter(R.propEq('assignedTo', id))
   const daysSum = R.compose(
     R.sum,
     R.pluck('estimate'),
@@ -25,8 +25,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     assignProjectProp: projectId => employeeId =>
-      dispatch(assignProject({id1: projectId, id2: employeeId})),
-    deleteProjectProp: id => dispatch(deleteProject({id})),
+      dispatch(assignProject(projectId, employeeId)),
+    deleteProjectProp: id => dispatch(deleteProject(id)),
   }
 }
 
@@ -39,7 +39,7 @@ function Project({
   project,
   daysSum,
 }) {
-  const {name, startDate, id, slack, employee} = project
+  const {name, startDate, id, slack, assignedTo} = project
   const startDateString = DateTime.fromMillis(startDate).toLocaleString()
   return (
     <>
@@ -57,7 +57,7 @@ function Project({
         <td>
           <DropDown
             changeHandler={assignProjectProp(id)}
-            current={employee}
+            current={assignedTo}
             items={employees}
           />
         </td>

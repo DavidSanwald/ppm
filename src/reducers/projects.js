@@ -9,7 +9,7 @@ const projects = (state = [], action) => {
   const {payload, type} = action
   switch (type) {
     case ADD_PROJECT:
-      return [...state, {...payload, employee: 'unassigned'}]
+      return [...state, {...payload, assignedTo: 'unassigned'}]
     case ASSIGN_PROJECT:
       if (
         R.filter(R.propEq('employee', payload.employeeId), state).length < 2
@@ -18,7 +18,7 @@ const projects = (state = [], action) => {
           if (project.id !== payload.projectId) {
             return project
           }
-          return {...project, employee: payload.employeeId}
+          return {...project, assignedTo: payload.employeeId}
         }, state)
       } else {
         console.error('max 2 projects per employee')

@@ -7,31 +7,35 @@ import {
   ASSIGN_TASK,
 } from '.././constants/ActionTypes'
 
+const idLens = R.lensProp('id')
+const estimateLens = R.lensProp('estimate')
+const assignedToLens = R.lensProp('assignedTo')
+
 const tasks = (state = [], action) => {
   const {payload, type} = action
   switch (type) {
     case ADD_TASK:
-      return [...state, {...payload, project: 'unassigned'}]
+      return [...state, {...payload, assignedTo: 'unassigned'}]
     case DELETE_TASK:
       return R.reject(R.propEq('id', payload.id), state)
     case ASSIGN_TASK:
       return R.map(task => {
         if (task.id === payload.taskId) {
-          return {...task, project: payload.projectId}
+          return {...task, assignedTo: payload.projectId}
         }
         return task
       }, state)
     case UPDATE_TASK:
       return R.map(task => {
-        if (task.id === payload.id) {
-          return {...task, estimate: payload.estimate}
+        if (R.view(idLens, task) === R.view(idLens, payload)) {
+          return R.set(estimateLens, R.view(estimateLens, payload), task)
         }
         return task
       }, state)
     case DELETE_PROJECT:
       return R.map(task => {
-        if (task.project === payload.id) {
-          return {...task, project: 'unassigned'}
+        if (R.view(assignedToLens, task) === R.view(idLens, payload)) {
+          return R.set(assignedToLens, 'unassigned', task)
         }
         return task
       }, state)
