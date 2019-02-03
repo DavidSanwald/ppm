@@ -1,5 +1,5 @@
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+Minimal UI demo at
+[https://create-react-app-jz7khbnet.now.sh](https://create-react-app-jz7khbnet.now.sh)
 
 ## Available Scripts
 
@@ -17,5 +17,3 @@ the console.
 
 Launches the test runner in the interactive watch mode.<br> See the section
 about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests)
-for more information.

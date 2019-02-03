@@ -2,12 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {assignProject} from './actions'
 import Task from './Task'
-import * as R from 'ramda'
 
-const assigned = R.compose(
-  R.not,
-  R.propEq('project', 'unassigned'),
-)
 const mapStateToProps = ({employees, projects, tasks}) => {
   return {
     projects,
